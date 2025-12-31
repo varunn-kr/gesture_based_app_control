@@ -43,10 +43,10 @@ def is_finger_open(lm, tip, pip, mcp):
 
 def count_fingers(lm):
     fingers = [
-        is_finger_open(lm, 8, 6, 5),    # Index
-        is_finger_open(lm, 12, 10, 9),  # Middle
-        is_finger_open(lm, 16, 14, 13), # Ring
-        is_finger_open(lm, 20, 18, 17)  # Pinky
+        is_finger_open(lm, 8, 6, 5),    
+        is_finger_open(lm, 12, 10, 9),  
+        is_finger_open(lm, 16, 14, 13), 
+        is_finger_open(lm, 20, 18, 17)  
     ]
     return sum(fingers)
 
@@ -93,7 +93,7 @@ while True:
         for hand_landmarks in result.multi_hand_landmarks:
             lm = hand_landmarks.landmark
 
-            # Hand size filtering
+            
             hand_size = abs(lm[0].y - lm[9].y)
             if hand_size < MIN_HAND_SIZE:
                 continue
@@ -103,7 +103,7 @@ while True:
             count = count_fingers(lm)
             history.append(count)
 
-            # Temporal smoothing
+            
             stable_count = max(set(history), key=history.count)
             open_app(stable_count)
 
@@ -119,8 +119,9 @@ while True:
 
     cv2.imshow("Hand Gesture App Controller", frame)
 
-    if cv2.waitKey(1) & 0xFF == 27:  # ESC
+    if cv2.waitKey(1) & 0xFF == 27:  
         break
 
 cap.release()
 cv2.destroyAllWindows()
+
